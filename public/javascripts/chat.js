@@ -14,10 +14,10 @@
 
     switch(args[0]) {
       case 'nick':
-        this.sock.emit('nickChangeRequest', {nick: args[1]});
+        this.sock.emit('nickChangeRequest', {nick: com.slice(4)});
         break;
       case 'join':
-        this.changeRoom(args[1]);
+        this.changeRoom(com.slice(4));
         break;
       default:
         sendMessage('Command not recognized');
