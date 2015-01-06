@@ -19,19 +19,33 @@ var sendMessage = function(event) {
 }
 
 var displayMessage = function(message) {
-  $('.messages').prepend('<li>' + message + '</li>');
+  var $li = $('<li></li>');
+  $li.append(document.createTextNode(message));
+  $('.message-list').prepend($li);
 }
 
 $(document).ready(function() {
   $('form').on('submit', sendMessage);
 
   socket.on('message', function(data){
-    console.log(data);
     var msg = data.user + ': '+ data.text;
     displayMessage(msg);
-  })
+  });
+
+  socket.on('roomList', function(data) {
+    var $rooms = $('.room-list')
+    $rooms.empty();
+    for (var room in data) {
+      var $room = $("<ul></ul>");
+      for (var user in data[room]) {
+        $room.append('<li class="user">'+data[room][user]+'</li>');
+      }
+      $room.prepend(room);
+      $rooms.append($room);
+    }
+  });
 
   socket.on('nickChangeResult', function(data){
-    console.log(data);
+    //wat do?
   })
 })

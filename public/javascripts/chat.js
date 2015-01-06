@@ -2,6 +2,7 @@
   var App = root.App = (root.App || {});
   App.Chat = function(socket) {
     this.sock = socket;
+    this.room = 'lobby';
   }
 
   App.Chat.prototype.sendMessage = function(text) {
@@ -10,10 +11,22 @@
 
   App.Chat.prototype.processCommand = function(com) {
     var args = com.split(' ');
-    if (args[0] === 'nick') {
-      this.sock.emit('nickChangeRequest', {nick: args[1]});
-    } else {
-      sendMessage('Command not recognized');
+
+    switch(args[0]) {
+      case 'nick':
+        this.sock.emit('nickChangeRequest', {nick: args[1]});
+        break;
+      case 'join':
+        this.changeRoom(args[1]);
+        break;
+      default:
+        sendMessage('Command not recognized');
     }
+  }
+
+  App.Chat.prototype.changeRoom = function(room) {
+    this.room = room;
+    this.sock.emit('roomChangeRequest', {room: room});
+    this.sendMessage('Entering '+room);
   }
 }(this));
