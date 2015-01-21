@@ -1,16 +1,24 @@
 {
   "name": "chat",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
-  "dependencies" :
-  { "socket.io" : "1.0.x",
-    "mime" : "~1.2.7",
-    "node-static" : "^0.7.4"
-  }
+  "dependencies": {
+    "socket.io": "1.0.x",
+    "mime": "~1.2.7",
+    "node-static": "^0.7.4"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/reruns/chat"
+  },
+  "bugs": {
+    "url": "https://github.com/reruns/chat/issues"
+  },
+  "homepage": "https://github.com/reruns/chat"
 }
